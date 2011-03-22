@@ -1,21 +1,4 @@
-require 'sinatra'
-require 'haml'
-require 'json'
-
-# We're using r68 from trunk because of an HTML encoding fix
-require 'jars/boilerpipe-1.0-r68.jar'
-require 'jars/nekohtml-1.9.13.jar'
-require 'jars/xerces-2.9.1.jar'
-
-java_import "java.net.URL"
-java_import "de.l3s.boilerpipe.extractors.ArticleExtractor"
-java_import "de.l3s.boilerpipe.extractors.ArticleSentencesExtractor"
-java_import "de.l3s.boilerpipe.extractors.KeepEverythingWithMinKWordsExtractor"
-java_import "de.l3s.boilerpipe.extractors.DefaultExtractor"
-java_import "de.l3s.boilerpipe.extractors.LargestContentExtractor"
-java_import "de.l3s.boilerpipe.extractors.NumWordsRulesExtractor"
-
-mime :json, "application/json"
+mime_type :json, "application/json"
 set :haml, {:format => :html5 }
 
 class UnknownExtractor < Exception; end
@@ -33,12 +16,12 @@ get '/extract' do
     mode = params[:mode] || "default"
     
     extractors = {
-      'article' => ArticleExtractor,
-      'article_sentences' => ArticleSentencesExtractor,
-      'min_k_words' => KeepEverythingWithMinKWordsExtractor,
-      'default' => DefaultExtractor,
-      'largest' => LargestContentExtractor,
-      'num_words' => NumWordsRulesExtractor
+      'article'             => ArticleExtractor,
+      'article_sentences'   => ArticleSentencesExtractor,
+      'min_k_words'         => KeepEverythingWithMinKWordsExtractor,
+      'default'             => DefaultExtractor,
+      'largest'             => LargestContentExtractor,
+      'num_words'           => NumWordsRulesExtractor
     }
     
     raise NoUrlPresent unless url_string && url_string.length > 0

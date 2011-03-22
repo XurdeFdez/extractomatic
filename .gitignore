@@ -3,3 +3,7 @@
 bin
 WEB-INF
 fix008.rb
+log/**
+tmp/**
+Gemfile.lock
+.rvmrc

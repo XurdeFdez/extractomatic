@@ -1,9 +1,3 @@
-require 'appengine-rack'
-require 'extractomatic'
-
-AppEngine::Rack.configure_app(
-  :application => "extractomatic",
-  :version => "1"
-)
+require File.expand_path(File.join(*%w[ config environment ]), File.dirname(__FILE__))
 
 run Sinatra::Application
